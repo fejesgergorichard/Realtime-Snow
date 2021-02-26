@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/snowsim.unity
+- path: Assets/mudsim.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

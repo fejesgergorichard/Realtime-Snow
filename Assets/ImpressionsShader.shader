@@ -53,8 +53,6 @@
 				float draw = pow(saturate(1 - distance(i.uv, _Coordinates.xy)), 500 / _Size);
 				fixed4 drawcol = _Color * (draw * _Strength);
 				return saturate(col + drawcol);
-
-				return col;
 			}
 			ENDCG
 		}
