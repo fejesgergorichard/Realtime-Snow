@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Snow restoration
 public class SnowNoise : MonoBehaviour {
 
     public Shader _SnowAccumulationShader;

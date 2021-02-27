@@ -30,7 +30,6 @@ public class DrawImpressions : MonoBehaviour
         _snowMaterial = GetComponent<MeshRenderer>().material; // tesselation shader
         _splatmap = new RenderTexture(1024, 1024, 0, RenderTextureFormat.ARGBFloat);
         _snowMaterial.SetTexture("_Splatmap", _splatmap);
-
     }
 
     // Update is called once per frame
@@ -49,6 +48,7 @@ public class DrawImpressions : MonoBehaviour
 
     }
 
+    // Draws a new dot on the splatmap to the given coordinates
     private void DrawDot(Vector4 coordinates)
     {
         _drawMaterial.SetVector("_Coordinates", coordinates);
@@ -60,6 +60,7 @@ public class DrawImpressions : MonoBehaviour
         RenderTexture.ReleaseTemporary(tmp);
     }
 
+    // Draws multiple dots according to the TrackResolution to avoid only dots at high speeds
     private void DrawDots()
     {
         Vector4 lastCoords = new Vector4(_lastHit.textureCoord.x, _lastHit.textureCoord.y, 0, 0);
