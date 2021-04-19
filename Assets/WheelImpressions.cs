@@ -5,33 +5,37 @@ using UnityEngine;
 
 public class WheelImpressions : MonoBehaviour {
 
-    public Shader _shader;
-    public GameObject[] _terrains;
-    public Transform[] _wheels;
+    public Shader Shader;
+    public GameObject[] Terrains;
+    public Transform[] Wheels;
     [Range(0, 2)]
-    public float _bSize;
+    public float WheelSize;
 
     [Range(0, 1)]
-    public float _bStrength;
+    public float WheelStrength;
     public int TrackResolution = 3;
 
     private Material _snow;
     private Material _drawMaterial;
     private RenderTexture _splatmap;
-    private RaycastHit[] _newHits = new RaycastHit[4];
-    private RaycastHit[] _lastHits = new RaycastHit[4];
+    private RaycastHit[] _newHits;
+    private RaycastHit[] _lastHits;
     private int _mask;
 
     private Collider _currentPlane;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        _newHits = new RaycastHit[Wheels.Length];
+        _lastHits = new RaycastHit[Wheels.Length];
+
         _mask = LayerMask.GetMask("Ground");
 
-        _drawMaterial = new Material(_shader);
+        _drawMaterial = new Material(Shader);
 
-        for (int i = 0; i < _terrains.Length; i++)
+        for (int i = 0; i < Terrains.Length; i++)
         {
-            _snow = _terrains[i].GetComponent<MeshRenderer>().material;
+            _snow = Terrains[i].GetComponent<MeshRenderer>().material;
             _splatmap = new RenderTexture(2048, 2048, 0, RenderTextureFormat.ARGBFloat);
             _snow.SetTexture("_Splatmap", _splatmap);
         }
@@ -40,14 +44,20 @@ public class WheelImpressions : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         int speed = (int)GetComponent<Rigidbody>().velocity.magnitude;
-        TrackResolution = (speed < 3) ? speed : 3;
 
-        for (int k = 0; k < _terrains.Length; k++)
+        if (speed > 3)
+            TrackResolution = 3;
+        else if (speed < 3 && speed > 0)
+            TrackResolution = speed;
+        else if (speed < 1)
+            TrackResolution = 1;
+
+        for (int k = 0; k < Terrains.Length; k++)
         {
-            for (int i = 0; i < _wheels.Length; i++)
+            for (int i = 0; i < Wheels.Length; i++)
             {
                 // raycasting towards mesh
-                if (Physics.Raycast(_wheels[i].position, -Vector3.up, out _newHits[i], 1f, _mask))
+                if (Physics.Raycast(Wheels[i].position, -Vector3.up, out _newHits[i], 1f, _mask))
                 {
                     DrawDots(i);
                 }
@@ -58,8 +68,8 @@ public class WheelImpressions : MonoBehaviour {
     private void DrawDot(Vector4 coordinates)
     {
         _drawMaterial.SetVector("_Coordinates", coordinates);
-        _drawMaterial.SetFloat("_Strength", _bStrength);
-        _drawMaterial.SetFloat("_Size", _bSize);
+        _drawMaterial.SetFloat("_Strength", WheelStrength);
+        _drawMaterial.SetFloat("_Size", WheelSize);
         RenderTexture tmp = RenderTexture.GetTemporary(_splatmap.width, _splatmap.height, 0, RenderTextureFormat.ARGBFloat);
         Graphics.Blit(_splatmap, tmp);
         Graphics.Blit(tmp, _splatmap, _drawMaterial);
@@ -82,7 +92,8 @@ public class WheelImpressions : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider != _currentPlane)
+        Debug.Log(other.collider.GetType());
+        if (other.collider.tag == "Ground" && other.collider != _currentPlane)
         {
             _currentPlane = other.collider;
             _snow = _currentPlane.GetComponent<MeshRenderer>().material;
