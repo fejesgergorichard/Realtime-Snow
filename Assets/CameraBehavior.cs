@@ -1,26 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
-
-    public GameObject player;       //Public variable to store a reference to the player game object
-
-
-    private Vector3 offset;         //Private variable to store the offset distance between the player and camera
+    public GameObject Target;
+    public float CameraDistance = 10f;
+    public float CameraHeight = 3f;
+    public float FollowSlerpSpeed = 1f;
 
     // Use this for initialization
     void Start()
     {
-        //Calculate and store the offset value by getting the distance between the player's position and camera's position.
-        offset = transform.position - player.transform.position;
+
     }
 
     // LateUpdate is called after Update each frame
-    void LateUpdate()
+    void FixedUpdate()
     {
-        // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
-        transform.position = player.transform.position + offset;
+        Vector3 newPosition = Target.transform.position - Target.transform.forward * CameraDistance;
+        transform.position = Vector3.Slerp(transform.position, newPosition, Time.deltaTime * FollowSlerpSpeed);
+
+        newPosition = new Vector3(transform.position.x, transform.position.y + CameraHeight, transform.position.z);
+        transform.position = newPosition;
+        transform.LookAt(Target.transform.position);
     }
 }

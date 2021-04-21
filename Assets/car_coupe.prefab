@@ -544,7 +544,6 @@ GameObject:
   - component: {fileID: 6146214571820051850}
   - component: {fileID: 5963052791979193770}
   - component: {fileID: 5963052791979193771}
-  - component: {fileID: 5963052791979193768}
   m_Layer: 0
   m_Name: car_coupe
   m_TagString: Untagged
@@ -625,29 +624,7 @@ MonoBehaviour:
   CenterOfMass: {x: 0, y: 0.1, z: 0}
   radius: 0.1
   Smokiness: 3
---- !u!114 &5963052791979193768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6773533936784619312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c86b9298e84d70648b2fe978a3d7b8da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shader: {fileID: 4800000, guid: f0787d4ea212bf743b273a0aab366eb7, type: 3}
-  _terrains:
-  - {fileID: 0}
-  _wheels:
-  - {fileID: 2250463295420804812}
-  - {fileID: 6781029857966663828}
-  - {fileID: 6763495890850522485}
-  - {fileID: 1515400317429391632}
-  _bSize: 0.3
-  _bStrength: 0.851
-  TrackResolution: 0
+  lightSwitchSpeed: 0.05
 --- !u!1 &8264954362281007894
 GameObject:
   m_ObjectHideFlags: 0
