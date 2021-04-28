@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4979098901876776}
   - component: {fileID: 33763849023700198}
   - component: {fileID: 23171273532239794}
-  - component: {fileID: 64728701005894146}
+  - component: {fileID: 1927521481390601262}
   m_Layer: 0
   m_Name: farm-house
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &64728701005894146
+--- !u!64 &1927521481390601262
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,6 +91,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 26c0498e614aa4d919ba63252c7e14c5, type: 3}
+  m_Mesh: {fileID: -3707699118087906665, guid: ea72dff3474dc0843ae38fb490635dc4, type: 3}
