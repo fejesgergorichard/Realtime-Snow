@@ -10935,7 +10935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3765faeccc6c7c149939dbe04197a429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlipTimeInMs: 0
+  FlipTimeInMs: 500
   maxMotorTorque: 100
   maxSteeringAngle: 35
   truck_Infos:
