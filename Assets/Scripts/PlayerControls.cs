@@ -149,29 +149,35 @@ public class PlayerControls : MonoBehaviour
 		}
 
         #region Visual effects of car
-		
-  //      // pedal to the metal
-  //      if (Input.GetAxis("Vertical") > 0)
-		//{
-		//	SetTaillightColor(Color.white);
-		//	SetMotorSmokeEmission(Input.GetAxis("Vertical") * 30 * Smokiness);
-		//}
-		//// braking
-		//else if (Input.GetAxis("Vertical") < 0 || brakeTorque > 0)
-		//{
-		//	SetTaillightColor(Color.red);
-		//	SetMotorSmokeEmission(2 * Smokiness);
-		//}
-		//// idle state
-		//else
-		//{
-		//	SetTaillightColor(Color.white);
-		//	SetMotorSmokeEmission(10 * Smokiness);
-		//}
-		
-		#endregion
 
-		if (Input.GetKey(KeyCode.R))
+        // pedal to the metal
+        if (motor > 0)
+        {
+            SetTaillightColor(Color.yellow);
+            SetMotorSmokeEmission(Input.GetAxis("Vertical") * 30 * Smokiness);
+		}
+		// reverse
+		else if (motor < 0 && brakeTorque == 0)
+		{
+			SetTaillightColor(Color.white);
+			SetMotorSmokeEmission(2 * Smokiness);
+		}
+		// brake
+		else if (brakeTorque != 0)
+        {
+            SetTaillightColor(Color.red);
+            SetMotorSmokeEmission(2 * Smokiness);
+        }
+        // idle state
+        else
+        {
+            SetTaillightColor(Color.yellow);
+            SetMotorSmokeEmission(10 * Smokiness);
+        }
+
+        #endregion
+
+        if (Input.GetKey(KeyCode.R))
 		{
 			Flip();
 		}
@@ -202,16 +208,16 @@ public class PlayerControls : MonoBehaviour
 
 	private void SetTaillightColor(Color color)
 	{
-        //Material myMaterial = (Material)AssetDatabase.LoadAssetAtPath("Assets/Materials/Brakelight.mat", typeof(Material));
+        Material myMaterial = (Material)AssetDatabase.LoadAssetAtPath("Assets/Materials/Brakelight.mat", typeof(Material));
 
-        //Color currentAlbedo = myMaterial.GetColor("_Color");
-        //Color currentEmission = myMaterial.GetColor("_EmissionColor");
+        Color currentAlbedo = myMaterial.GetColor("_Color");
+        Color currentEmission = myMaterial.GetColor("_EmissionColor");
 
-        //if (!color.Equals(currentAlbedo))
-        //{
-        //    myMaterial.SetColor("_Color", Color.Lerp(currentAlbedo, color, lightSwitchSpeed));
-        //    myMaterial.SetColor("_EmissionColor", Color.Lerp(currentEmission, color, lightSwitchSpeed));
-        //}
+        if (!color.Equals(currentAlbedo))
+        {
+            myMaterial.SetColor("_Color", Color.Lerp(currentAlbedo, color, lightSwitchSpeed));
+            myMaterial.SetColor("_EmissionColor", Color.Lerp(currentEmission, color, lightSwitchSpeed));
+        }
     }
 
 
